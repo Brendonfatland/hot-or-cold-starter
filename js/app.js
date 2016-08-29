@@ -70,14 +70,10 @@ var secretNumber = Math.floor((Math.random() * 100) + 1);
 
 		//keep track of the users past guesses
 		function trackGuess(){
+			var guess = $("#userGuess").val();
 
-			var userGuess = {
-				guess : $("#userGuess").val()
-			}
-		previousGuesses.push(userGuess);
-		console.log(previousGuesses);
-				$("#userGuess") += '<li>' + value + '</li>';
-			}
+			$("#guessList").append("<li>" + guess + "</li>");
+		}
 
 
 

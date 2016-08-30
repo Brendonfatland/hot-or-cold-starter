@@ -26,10 +26,15 @@ var secretNumber = Math.floor((Math.random() * 100) + 1);
 
 		 $("#guessButton").on('click', function(e) {
 			 e.preventDefault();
+         if (($("#userGuess").val() > 0) && ($("#userGuess").val() < 100) && ($("#userGuess").val() !== null)  && !$.isNumeric()){
 			 guessCount();
-			 trackGuess();
+			 trackGuessToList();
 			 feedback(secretNumber);
-		 })
+      }
+      else {
+        $("#feedback").html("Please enter a number between 1 and 100.")
+      }
+     })
 
     // resets game.
     function newGame() {
@@ -42,8 +47,9 @@ var secretNumber = Math.floor((Math.random() * 100) + 1);
 				$(".text").val("");
 
         // clear out numbers guessed.
-				$(".clearfix").remove();
+        $(".guessBox li").remove();
 
+        $("#feedback").html("Make your Guess!");
 
 				// secretNumber for the game
 				var secretNumber = Math.floor((Math.random() * 100) + 1);
@@ -53,15 +59,21 @@ var secretNumber = Math.floor((Math.random() * 100) + 1);
 
     //takes users guess and tells how close you are to correct number
     function feedback(secretNumber) {
-   if ($("#userGuess").val() == secretNumber){
-		 winner();
-	 }
-		 else if($("#userGuess").val() > secretNumber){
-			 $("#feedback").html("Too high!")
-		 }
-		 else if ($("#userGuess").val() < secretNumber){
-			 $("#feedback").html("Too low!")
-		 }
+      if (($("#userGuess").val() > 0) && ($("#userGuess").val() < 100) && ($("#userGuess").val() !== null)  && !$.isNumeric()){
+        if ($("#userGuess").val() == secretNumber){
+          winner();
+        }
+          else if($("#userGuess").val() > secretNumber){
+            $("#feedback").html("Too high!")
+          }
+          else if ($("#userGuess").val() < secretNumber){
+            $("#feedback").html("Too low!")
+          }
+      }
+      else {
+        $("#feedback").html("Please enter a number between 1 and 100.")
+      }
+
     }
 
 		function winner(){
@@ -69,17 +81,16 @@ var secretNumber = Math.floor((Math.random() * 100) + 1);
 		}
 
 		//keep track of the users past guesses
-		function trackGuess(){
+		function trackGuessToList(){
 			var guess = $("#userGuess").val();
-
-			$("#guessList").append("<li>" + guess + "</li>");
-		}
+  	$("#guessList").append("<li>" + guess + "</li>");
+}
 
 
 
 		//keep track of guess count
 		function guessCount(){
-			$("#count").html(counter++);
+        	$("#count").html(counter++);
 		}
 
 
